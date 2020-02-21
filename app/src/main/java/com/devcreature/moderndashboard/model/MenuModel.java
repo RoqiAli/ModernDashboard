@@ -5,8 +5,7 @@ public class MenuModel {
     private int image;
     private int color;
 
-    public MenuModel() {
-    }
+    public MenuModel() { }
 
     public String getName() {
         return name;
@@ -16,19 +15,13 @@ public class MenuModel {
         this.name = name;
     }
 
-    public int getImage() {
-        return image;
-    }
+    public int getImage() { return image; }
 
     public void setImage(int image) {
         this.image = image;
     }
 
-    public int getColor() {
-        return color;
-    }
+    public int getColor() { return color; }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
+    public void setColor(int color) { this.color = color; }
 }

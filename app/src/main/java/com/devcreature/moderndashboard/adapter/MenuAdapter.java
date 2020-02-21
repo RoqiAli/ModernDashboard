@@ -18,15 +18,17 @@ public class MenuAdapter extends
         RecyclerView.Adapter<MenuAdapter.MenuGrid> {
 
     private ArrayList<MenuModel> menuModels;
+    private OnClickListener onClickListener;
 
-    public MenuAdapter(ArrayList<MenuModel> menuModels) {
+    public MenuAdapter(ArrayList<MenuModel> menuModels, OnClickListener onClickListener) {
         this.menuModels = menuModels;
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
     public MenuGrid onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MenuGrid(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_menu, parent, false));
+        return new MenuGrid(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_menu, parent, false), onClickListener);
     }
 
     @Override
@@ -40,15 +42,17 @@ public class MenuAdapter extends
         else return 0;
     }
 
-    class MenuGrid extends RecyclerView.ViewHolder {
+    class MenuGrid extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvTitle;
         private ImageView ivPhoto;
+        private OnClickListener onClickListener;
 
-
-        MenuGrid(@NonNull View itemView) {
+        MenuGrid(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.textView);
             ivPhoto = itemView.findViewById(R.id.imageView);
+            this.onClickListener = onClickListener;
+            itemView.setOnClickListener(this);
         }
 
         void sefDataMenu(MenuModel menuModel){
@@ -56,5 +60,14 @@ public class MenuAdapter extends
             ivPhoto.setImageResource(menuModel.getImage());
             ivPhoto.setBackgroundResource(menuModel.getColor());
         }
+
+        @Override
+        public void onClick(View v) {
+            onClickListener.onItemClickListener(getAdapterPosition());
+        }
+    }
+
+    public interface OnClickListener {
+        void onItemClickListener(int position);
     }
 }

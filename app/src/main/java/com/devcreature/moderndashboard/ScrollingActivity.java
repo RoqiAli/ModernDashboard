@@ -22,7 +22,8 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends AppCompatActivity
+    implements MenuAdapter.OnClickListener{
 
     private ArrayList<MenuModel> menuModels = new ArrayList<>();
 
@@ -50,7 +51,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         menuModels.addAll(MenuData.getListData());
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4));
-        MenuAdapter menuAdapter = new MenuAdapter(menuModels);
+        MenuAdapter menuAdapter = new MenuAdapter(menuModels, this);
         recyclerView.setAdapter(menuAdapter);
 
     }
@@ -112,5 +113,10 @@ public class ScrollingActivity extends AppCompatActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+        Toast.makeText(this, ""+menuModels.get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 }
